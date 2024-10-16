@@ -9,7 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ro.itschool.entity.ITSchoolRole;
 import ro.itschool.entity.ITSchoolUser;
-import ro.itschool.repository.ITSchoolUserRepository;
+import ro.itschool.entity.Student;
+import ro.itschool.repository.StudentRepository;
 
 import java.util.Set;
 
@@ -17,27 +18,20 @@ import java.util.Set;
 public class ITSchoolUserService implements UserDetailsService {
 
     @Autowired
-    private ITSchoolUserRepository itSchoolUserRepository;
+    private StudentRepository studentRepository;
 
-    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        ITSchoolUser itSchoolUser = itSchoolUserRepository.findByUsername(username).get();
+        ITSchoolUser itSchoolUser = studentRepository.findByUsername(username).get();
 //        itSchoolUser.getAuthorities().add(new SimpleGrantedAuthority("USER"));
         return itSchoolUser;
     }
 
-    public void registerStudent(ITSchoolUser user) {
-        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        user.setRoles(Set.of(ITSchoolRole.STUDENT));
-        itSchoolUserRepository.save(user);
-    }
 
     public void registerTeacher(ITSchoolUser user) {
-        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        user.setRoles(Set.of(ITSchoolRole.TEACHER));
-        itSchoolUserRepository.save(user);
+//        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+//        user.setPassword(encodedPassword);
+//        user.setRoles(Set.of(ITSchoolRole.TEACHER));
+//        itSchoolUserRepository.save(user);
     }
 }

@@ -16,13 +16,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Entity
+// @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
-public class ITSchoolUser implements UserDetails {
+// @Table(name = "user")
+@MappedSuperclass
+public abstract class ITSchoolUser implements UserDetails {
 //clasa trebuie sa implementeze methods din userdetails - spring
 
     @Id
@@ -38,15 +39,8 @@ public class ITSchoolUser implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @ElementCollection(fetch=FetchType.EAGER)
-    @CollectionTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
-    )
-    @Column(name = "role")
-    @Fetch(FetchMode.JOIN)
     @Enumerated(EnumType.STRING)
-    private Set<ITSchoolRole> roles;
+    private ITSchoolRole role;
 
     public Integer getId() {
         return id;
@@ -78,12 +72,5 @@ public class ITSchoolUser implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
-                .collect(Collectors.toUnmodifiableList());
     }
 }

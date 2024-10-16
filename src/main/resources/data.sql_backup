@@ -1,0 +1,2 @@
+insert into user (mail, username, password) values ('admin@admin.ro', 'admin', '$2y$10$fKLlQaVmGnqGNgW5Z7r4kO7Oy0SqQHzebTm7V06/GzuWqPsqt/kCW')
+insert into user_role (user_id, role) values (1, 'ADMIN')

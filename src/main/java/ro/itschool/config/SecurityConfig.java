@@ -35,7 +35,7 @@ public class SecurityConfig { //specific la authentification
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/everyone" , "/register").permitAll()
+                                .requestMatchers("/everyone" , "/student/register").permitAll()
                                 .requestMatchers("/auth/user/welcome", "/auth/admin/welcome", "/auth/teacher/welcome")
                                 .authenticated()
                 ).formLogin(
