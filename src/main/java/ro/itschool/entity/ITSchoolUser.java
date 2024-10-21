@@ -5,25 +5,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-// @Entity
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 // @Table(name = "user")
-@MappedSuperclass
-public abstract class ITSchoolUser implements UserDetails {
+//@MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)
+public class ITSchoolUser implements UserDetails {
 //clasa trebuie sa implementeze methods din userdetails - spring
 
     @Id
@@ -72,5 +68,10 @@ public abstract class ITSchoolUser implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
     }
 }

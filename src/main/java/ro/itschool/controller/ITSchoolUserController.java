@@ -2,8 +2,8 @@ package ro.itschool.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-import ro.itschool.entity.ITSchoolUser;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ro.itschool.service.ITSchoolUserService;
 
 @RestController
@@ -33,11 +33,5 @@ public class ITSchoolUserController {
     @GetMapping("/auth/admin/welcome")
     public String sayHelloAdmin() {
         return "Hello admin";
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/register/teacher")
-    public void registerTeacher(@RequestBody ITSchoolUser user) {
-        itSchoolUserService.registerTeacher(user);
     }
 }

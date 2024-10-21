@@ -1,7 +1,11 @@
 use itschool;
 
-insert into student (mail, username, password, grade, role) values ('student1@student.ro', 'student1', '$2a$12$8PD11Ga5W55bPzw4J5zFM.r4nA1qJmX3kMR0bZvdKG4O6vws7JaFq', 'X', 'STUDENT');
-insert into student (mail, username, password, grade, role) values ('student2@student.ro', 'student2', '$2a$12$MdMwKu2BHJEUw66phhW/kumywUPjXXBSEi2ZWkDwWH9A20BJ7yv9.', 'XI', 'STUDENT');
+insert into itschool_user (mail, username, password, role) values ('student1@student.ro', 'student1', '$2a$12$8PD11Ga5W55bPzw4J5zFM.r4nA1qJmX3kMR0bZvdKG4O6vws7JaFq', 'STUDENT');
+insert into itschool_user (mail, username, password, role) values ('student2@student.ro', 'student2', '$2a$12$MdMwKu2BHJEUw66phhW/kumywUPjXXBSEi2ZWkDwWH9A20BJ7yv9.', 'STUDENT');
+insert into itschool_user (mail, username, password, role) values ('teacher@teacher.ro', 'teacher', '$2a$12$g7tMH3jQl/PQmDV62FwERu8QrkChJNQieNQ3PCMSuqeL/YuSqwDIW', 'TEACHER');
+insert into student (grade) values ('X');
+insert into student (grade) values ('XI');
+
 
 insert into subject (name) values ('ROMANA');
 insert into subject (name) values ('MATE');
@@ -28,3 +32,7 @@ insert into student_subject_grade (student_id, subject_id, grade) values (2, 3, 
 insert into student_subject_grade (student_id, subject_id, grade) values (2, 4, 9);
 insert into student_subject_grade (student_id, subject_id, grade) values (2, 4, 10);
 insert into student_subject_grade (student_id, subject_id, grade) values (2, 4, 10);
+
+insert into teacher_subjects (teacher_id, subjects) values (1, 'BIOLOGIE');
+insert into teacher_subjects (teacher_id, subjects) values (1, 'FIZICA');
+insert into teacher_subjects (teacher_id, subjects) values (1, 'SPORT');
