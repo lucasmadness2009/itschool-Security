@@ -36,7 +36,7 @@ public class SecurityConfig { //specific la authentification
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/everyone" , "/student/register").permitAll()
-                                .requestMatchers("/auth/user/welcome", "/auth/admin/welcome", "/auth/teacher/welcome")
+                                .requestMatchers("/auth/user/welcome", "/auth/admin/welcome", "/auth/teacher/welcome", "/student/my-grades")
                                 .authenticated()
                 ).formLogin(
                         AbstractAuthenticationFilterConfigurer::permitAll);

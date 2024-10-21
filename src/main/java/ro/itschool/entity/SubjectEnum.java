@@ -1,6 +1,6 @@
 package ro.itschool.entity;
 
-public enum Subjects {
+public enum SubjectEnum {
     ROMANA,
     MATE,
     FIZICA,

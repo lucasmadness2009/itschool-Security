@@ -1,23 +1,29 @@
 package ro.itschool.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import javax.security.auth.Subject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @Entity
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student extends ITSchoolUser {
 
     @Enumerated(EnumType.STRING)
     private Grade grade;
 
-    @ElementCollection
-    @MapKeyColumn(name = "key")
-    private Map<Subjects, List<Integer>> subjectsMap;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StudentSubjectGrade> studentSubjectGrades = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
