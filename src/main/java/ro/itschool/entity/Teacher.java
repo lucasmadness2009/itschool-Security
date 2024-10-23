@@ -15,8 +15,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Teacher extends ITSchoolUser{
@@ -29,5 +27,13 @@ public class Teacher extends ITSchoolUser{
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_TEACHER"));
+    }
+
+    public List<SubjectEnum> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(final List<SubjectEnum> subjects) {
+        this.subjects = subjects;
     }
 }

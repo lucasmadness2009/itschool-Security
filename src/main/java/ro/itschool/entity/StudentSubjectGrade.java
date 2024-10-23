@@ -9,10 +9,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class StudentSubjectGrade {
 
   @Id
@@ -38,9 +34,44 @@ public class StudentSubjectGrade {
 
   }
 
+  public StudentSubjectGrade() {
+  }
+
   public StudentSubjectGrade(final Student student, final Subject subject, final List<Integer> grade) {
     this.student = student;
     this.subject = subject;
+    this.grade = grade;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(final Long id) {
+    this.id = id;
+  }
+
+  public Student getStudent() {
+    return student;
+  }
+
+  public void setStudent(final Student student) {
+    this.student = student;
+  }
+
+  public Subject getSubject() {
+    return subject;
+  }
+
+  public void setSubject(final Subject subject) {
+    this.subject = subject;
+  }
+
+  public List<Integer> getGrade() {
+    return grade;
+  }
+
+  public void setGrade(final List<Integer> grade) {
     this.grade = grade;
   }
 }

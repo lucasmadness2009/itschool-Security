@@ -11,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
@@ -67,4 +65,11 @@ public abstract class ITSchoolUser implements UserDetails {
         this.password = password;
     }
 
+    public ITSchoolRole getRole() {
+        return role;
+    }
+
+    public void setRole(final ITSchoolRole role) {
+        this.role = role;
+    }
 }

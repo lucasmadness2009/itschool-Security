@@ -1,7 +1,6 @@
 package ro.itschool.scheduler;
 
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,8 @@ public class ScheduledTasks {
   private AdminRepository adminRepository;
 
   @Scheduled(fixedRate = 60 * 1000)
-  public void reportCurrentTime() {
+  public void reportCurrentTime() throws InterruptedException {
+    Thread.sleep(1000);
     log.info("Getting admin from repository");
     var optionalAdmin = adminRepository.findById(1);
     log.info("Found admin: {}", optionalAdmin);
@@ -26,6 +26,6 @@ public class ScheduledTasks {
       log.info("Setting new value for minutesFromHiring: {}", minutesFromHiring + 1);
       return admin;
     });
-    adminRepository.save(optionalAdmin.get());
+    optionalAdmin.ifPresent(admin -> adminRepository.save(admin));
   }
 }

@@ -10,12 +10,18 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Admin extends ITSchoolUser {
+
+  public Long getMinutesFromHiring() {
+    return minutesFromHiring;
+  }
+
+  public void setMinutesFromHiring(final Long minutesFromHiring) {
+    this.minutesFromHiring = minutesFromHiring;
+  }
 
   private Long minutesFromHiring;
 
