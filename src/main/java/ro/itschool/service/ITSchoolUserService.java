@@ -5,18 +5,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ro.itschool.entity.ITSchoolUser;
-import ro.itschool.repository.ITSchoolUserRepository;
+import ro.itschool.repository.StudentRepository;
+import ro.itschool.repository.TeacherRepository;
 
 @Service //apare la toate service urile
 public class ITSchoolUserService implements UserDetailsService {
 
-    @Autowired
-    private ITSchoolUserRepository itSchoolUserRepository;
+  @Autowired
+  private StudentRepository studentRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        ITSchoolUser itSchoolUser = itSchoolUserRepository.findByUsername(username).get();
-        return itSchoolUser;
-    }
+  @Autowired
+  private TeacherRepository teacherRepository;
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return studentRepository.findByUsername(username)
+            .map(student -> (UserDetails) student) // Return Student if found, cast to UserDetails
+            .orElseGet(() -> teacherRepository.findByUsername(username)
+                               .map(teacher -> (UserDetails) teacher) // Return Teacher if found, cast to UserDetails
+                               .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username))
+                      );
+  }
 }

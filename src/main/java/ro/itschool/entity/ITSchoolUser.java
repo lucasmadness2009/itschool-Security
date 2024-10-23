@@ -11,15 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-// @Table(name = "user")
-//@MappedSuperclass
-@Inheritance(strategy = InheritanceType.JOINED)
-public class ITSchoolUser implements UserDetails {
+@MappedSuperclass
+public abstract class ITSchoolUser implements UserDetails {
 //clasa trebuie sa implementeze methods din userdetails - spring
 
     @Id
@@ -70,8 +67,4 @@ public class ITSchoolUser implements UserDetails {
         this.password = password;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
 }

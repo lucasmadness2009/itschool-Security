@@ -19,36 +19,29 @@ import ro.itschool.service.ITSchoolUserService;
 @EnableMethodSecurity
 public class SecurityConfig { //specific la authentification
 
-    @Autowired
-    private ITSchoolUserService itSchoolUserService;
+  @Autowired
+  private ITSchoolUserService itSchoolUserService;
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(itSchoolUserService);
-        authProvider.setPasswordEncoder(passwordEncoder()); // Use BCrypt for password encoding
-        return authProvider;
-    }
+  @Bean
+  public DaoAuthenticationProvider authenticationProvider() {
+    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    authProvider.setUserDetailsService(itSchoolUserService);
+    authProvider.setPasswordEncoder(passwordEncoder()); // Use BCrypt for password encoding
+    return authProvider;
+  }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(
-                        auth -> auth
-                                .requestMatchers("/everyone" ,"/student/register").permitAll()
-                                .requestMatchers("/auth/user/welcome",
-                                        "/auth/admin/welcome",
-                                        "/auth/teacher/welcome",
-                                        "/student/my-grades",
-                                        "/teacher/my-subjects")
-                                .authenticated()
-                ).formLogin(
-                        AbstractAuthenticationFilterConfigurer::permitAll);
-        return http.build();
-    }
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/everyone", "/student/register").permitAll()
+                    .anyRequest().authenticated())
+            .formLogin(AbstractAuthenticationFilterConfigurer::permitAll);
+    return http.build();
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Use BCrypt for hashing passwords
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder(); // Use BCrypt for hashing passwords
+  }
 }

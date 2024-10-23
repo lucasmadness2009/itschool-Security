@@ -19,14 +19,15 @@ import java.util.List;
 @NoArgsConstructor
 public class Student extends ITSchoolUser {
 
-    @Enumerated(EnumType.STRING)
-    private Grade grade;
+  @Enumerated(EnumType.STRING)
+  private Grade grade;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<StudentSubjectGrade> studentSubjectGrades = new ArrayList<>();
+  @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  private List<StudentSubjectGrade> studentSubjectGrades = new ArrayList<>();
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_STUDENT"));
-    }
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority("ROLE_STUDENT"));
+  }
+
 }
