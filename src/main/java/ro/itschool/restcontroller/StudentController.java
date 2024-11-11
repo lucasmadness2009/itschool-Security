@@ -1,6 +1,6 @@
-package ro.itschool.controller;
+package ro.itschool.restcontroller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,12 +14,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/student")
+@RequiredArgsConstructor
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
-    @Autowired
-    private StudentSubjectGradeService studentSubjectGradeService;
+    private final StudentService studentService;
+    private final StudentSubjectGradeService studentSubjectGradeService;
 
     @PostMapping("/register")
     public void registerStudent(@RequestBody Student user) {

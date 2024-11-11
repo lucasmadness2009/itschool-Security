@@ -1,6 +1,6 @@
-package ro.itschool.controller;
+package ro.itschool.restcontroller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,13 +13,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/teacher")
+@RequiredArgsConstructor
 public class TeacherController {
 
-  @Autowired
-  private TeacherService teacherService;
-
-  @Autowired
-  private StudentSubjectGradeService studentSubjectGradeService;
+  private final TeacherService teacherService;
+  private final StudentSubjectGradeService studentSubjectGradeService;
 
   @PreAuthorize("hasRole('ROLE_TEACHER')")
   @GetMapping("/my-subjects")
