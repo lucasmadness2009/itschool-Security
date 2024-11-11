@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>Welcome to Our College</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Our College</a>
+    <div class="ml-auto">
+        <!-- Show login button if not authenticated -->
+        <a th:href="@{/login}" class="btn btn-outline-light" sec:authorize="isAnonymous()">Login</a>
+        <!-- Show logout button and user greeting if authenticated -->
+        <span sec:authorize="isAuthenticated()">
+                <span class="text-white mr-2">Welcome, <span sec:authentication="name"></span></span>
+                <a th:href="@{/logout}" class="btn btn-outline-light">Logout</a>
+            </span>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="text-center">Welcome to Our College</h1>
+    <p class="lead text-center">We are excited to have you explore our academic and extracurricular programs!</p>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h2>About Us</h2>
+            <p>Our college is committed to providing a comprehensive education that helps students excel in their chosen
+                fields and become well-rounded individuals.</p>
+        </div>
+        <div class="col-md-6">
+            <img th:src="'data:image/jpeg;base64,' + ${image}" alt="Image" style="max-width: 100%; height: auto;">
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

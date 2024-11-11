@@ -34,9 +34,10 @@ public class SecurityConfig { //specific la authentification
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/everyone", "/student/register").permitAll()
-                    .anyRequest().authenticated())
-            .formLogin(AbstractAuthenticationFilterConfigurer::permitAll);
+//                    .requestMatchers("/everyone", "/student/register", "/welcome", "/images/**").permitAll()
+//                    .anyRequest().authenticated())
+                    .anyRequest().permitAll());
+//                    .formLogin(AbstractAuthenticationFilterConfigurer::permitAll);
     return http.build();
   }
 
