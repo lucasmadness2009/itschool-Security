@@ -16,7 +16,7 @@ public class StudentService {
   private StudentRepository studentRepository;
 
   public Student registerStudent(Student student) {
-    log.info("Register student: " + student.getUsername());
+    log.info("Register student: {}", student.getUsername());
     String encodedPassword = new BCryptPasswordEncoder().encode(student.getPassword());
     student.setPassword(encodedPassword);
     student.setRole(ITSchoolRole.STUDENT);

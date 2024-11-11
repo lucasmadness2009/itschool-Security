@@ -16,41 +16,18 @@ import java.util.List;
 @NoArgsConstructor
 public class Subject {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    private SubjectEnum name;
+  @Enumerated(EnumType.STRING)
+  private SubjectEnum subjectEnum;
 
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<StudentSubjectGrade> studentSubjectGrades = new ArrayList<>();
+  @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  private List<StudentSubjectGrade> studentSubjectGrades = new ArrayList<>();
 
-    public Subject(final SubjectEnum name) {
-        this.name = name;
-    }
+  public Subject(final SubjectEnum subjectEnum) {
+    this.subjectEnum = subjectEnum;
+  }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(final Integer id) {
-        this.id = id;
-    }
-
-    public SubjectEnum getName() {
-        return name;
-    }
-
-    public void setName(final SubjectEnum name) {
-        this.name = name;
-    }
-
-    public List<StudentSubjectGrade> getStudentSubjectGrades() {
-        return studentSubjectGrades;
-    }
-
-    public void setStudentSubjectGrades(final List<StudentSubjectGrade> studentSubjectGrades) {
-        this.studentSubjectGrades = studentSubjectGrades;
-    }
 }

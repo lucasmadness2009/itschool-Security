@@ -1,7 +1,7 @@
 package ro.itschool.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ro.itschool.entity.ITSchoolRole;
@@ -12,13 +12,13 @@ import java.util.List;
 
 @Service
 @Log4j2
+@RequiredArgsConstructor
 public class TeacherService {
 
-  @Autowired
-  private TeacherRepository teacherRepository;
+  private final TeacherRepository teacherRepository;
 
   public Teacher registerTeacher(Teacher teacher) {
-    log.info("Register teacher: " + teacher.getUsername());
+    log.info("Register teacher: {}", teacher.getUsername());
     String encodedPassword = new BCryptPasswordEncoder().encode(teacher.getPassword());
     teacher.setPassword(encodedPassword);
     teacher.setRole(ITSchoolRole.TEACHER);
@@ -29,6 +29,7 @@ public class TeacherService {
     return teacherRepository.findById(id).map(
             teacher -> teacher.getSubjects().stream()
                     .map(Enum::name)
-                    .toList()).orElseThrow(() -> new RuntimeException("teacher not found"));
+                    .toList()).orElseThrow(() -> new RuntimeException("Teacher not found"));
   }
+
 }

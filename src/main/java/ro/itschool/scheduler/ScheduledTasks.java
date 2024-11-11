@@ -1,17 +1,20 @@
 package ro.itschool.scheduler;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ro.itschool.repository.AdminRepository;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 @Log4j2
 @Component
+@RequiredArgsConstructor
 public class ScheduledTasks {
 
-  @Autowired
-  private AdminRepository adminRepository;
+  private final AdminRepository adminRepository;
 
   @Scheduled(fixedRate = 60 * 1000)
   public void reportCurrentTime() throws InterruptedException {
@@ -20,12 +23,8 @@ public class ScheduledTasks {
     var optionalAdmin = adminRepository.findById(1);
     log.info("Found admin: {}", optionalAdmin);
 
-    optionalAdmin.map(admin -> {
-      var minutesFromHiring = admin.getMinutesFromHiring();
-      admin.setMinutesFromHiring(minutesFromHiring + 1);
-      log.info("Setting new value for minutesFromHiring: {}", minutesFromHiring + 1);
-      return admin;
-    });
-    optionalAdmin.ifPresent(admin -> adminRepository.save(admin));
+    long minutes = ChronoUnit.MINUTES.between(optionalAdmin.get().getHiringDate(), LocalDateTime.now());
+
+    log.info("Admin seniority in minutes {}", minutes);
   }
 }
